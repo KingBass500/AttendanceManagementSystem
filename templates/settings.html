@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+{% block page_title %}Settings{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Settings</h1><p>Basic system information and account details.</p></div></div>
+<div class="dashboard-grid single"><section class="panel"><div class="panel-head"><div><h2>System settings</h2><p>This version keeps the core configuration inside the Flask application.</p></div></div><div class="settings-list"><div><span>Application</span><strong>Attendance Management System</strong></div><div><span>Database</span><strong>SQLite</strong></div><div><span>Current role</span><strong>{{ current_user.get('role','user')|title }}</strong></div><div><span>Access control</span><strong>Role-based</strong></div></div></section></div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Overview | Attendance Management System{% endblock %}
+{% block page_title %}Overview{% endblock %}
+{% block content %}
+<div class="welcome-row">
+  <div>
+    <h1>Good day, Administrator.</h1>
+    <p>Here is your attendance system overview.</p>
+  </div>
+  <a class="btn primary" href="{{ url_for('reports') }}">View reports <span>→</span></a>
+</div>
+
+<div class="stats-grid">
+  <div class="metric-card"><div class="metric-icon blue">♙</div><div><span>Total students</span><strong>{{ counts.students }}</strong><small>Registered students</small></div></div>
+  <div class="metric-card"><div class="metric-icon orange">◷</div><div><span>Lecture sessions</span><strong>{{ counts.sessions }}</strong><small>Sessions recorded</small></div></div>
+  <div class="metric-card"><div class="metric-icon green">✓</div><div><span>Courses</span><strong>{{ counts.subjects }}</strong><small>Active subjects</small></div></div>
+  <div class="metric-card"><div class="metric-icon purple">▣</div><div><span>Classes</span><strong>{{ counts.classes }}</strong><small>Academic classes</small></div></div>
+</div>
+
+<div class="dashboard-grid">
+  <section class="panel large-panel">
+    <div class="panel-head"><div><h2>Recent lecture sessions</h2><p>Latest attendance activity in the system</p></div><a href="{{ url_for('admin_sessions') }}">View all</a></div>
+    <div class="session-list">
+      {% for s in recent_sessions %}
+      <div class="session-row">
+        <div class="session-date"><strong>{{ s.session_date[8:10] }}</strong><span>{{ s.session_date[5:7] }}/{{ s.session_date[0:4] }}</span></div>
+        <div class="session-main"><strong>{{ s.code }} · {{ s.subject_name }}</strong><span>{{ s.class_name }} · {{ s.lecturer_name }}</span></div>
+        <div class="session-status"><span class="pill success">Completed</span></div>
+      </div>
+      {% else %}
+      <div class="empty-state">No lecture sessions have been recorded yet.</div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="panel attention-panel">
+    <div class="panel-head"><div><h2>Students needing attention</h2><p>Below the 75% attendance threshold</p></div></div>
+    {% for s in attention_students %}
+    <div class="attention-row">
+      <div class="avatar small">{{ s.first_name[0] }}{{ s.last_name[0] }}</div>
+      <div class="attention-info"><strong>{{ s.first_name }} {{ s.last_name }}</strong><span>{{ s.student_number }} · {{ s.class_name or 'No class' }}</span></div>
+      <strong class="danger-text">{{ s.percentage }}%</strong>
+    </div>
+    {% else %}
+    <div class="empty-state compact">No students currently below 75%.</div>
+    {% endfor %}
+    <a class="attention-action" href="{{ url_for('reports') }}">Review attendance report <span>→</span></a>
+  </section>
+</div>
+
+<section class="quick-actions">
+  <div class="panel-head"><div><h2>Quick actions</h2><p>Common administration tasks</p></div></div>
+  <div class="quick-grid">
+    <a href="{{ url_for('students') }}"><span class="quick-icon">♙</span><strong>Manage students</strong><small>Add or view students</small></a>
+    <a href="{{ url_for('subjects') }}"><span class="quick-icon">▣</span><strong>Manage courses</strong><small>Subjects and lecturers</small></a>
+    <a href="{{ url_for('admin_sessions') }}"><span class="quick-icon">◷</span><strong>Lecture sessions</strong><small>Review attendance sessions</small></a>
+    <a href="{{ url_for('users') }}"><span class="quick-icon">♟</span><strong>Manage users</strong><small>View system accounts</small></a>
+  </div>
+</section>
+{% endblock %}

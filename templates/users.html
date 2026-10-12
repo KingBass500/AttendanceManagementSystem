@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block page_title %}Users{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Users</h1><p>View the people who have access to the attendance system.</p></div></div>
+<section class="panel"><div class="panel-head"><div><h2>System users</h2><p>Use the Students and Lecturers pages to add new accounts.</p></div></div><div class="table-wrap"><table><thead><tr><th>Username</th><th>Role</th><th>Status</th></tr></thead><tbody>{% for u in users %}<tr><td><strong>{{ u.username }}</strong></td><td>{{ u.role|title }}</td><td><span class="pill success">Active</span></td></tr>{% else %}<tr><td colspan="3"><div class="empty-state">No users found.</div></td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

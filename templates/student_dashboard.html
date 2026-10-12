@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Student Overview{% endblock %}
+{% block page_title %}Overview{% endblock %}
+{% block content %}
+<div class="welcome-row"><div><h1>Good day, {{ student.first_name }}.</h1><p>{{ student.student_number }} · Track your attendance progress below.</p></div></div>
+<div class="stats-grid">
+<div class="metric-card"><div class="metric-icon blue">◷</div><div><span>Total sessions</span><strong>{{ stats.total or 0 }}</strong><small>Sessions recorded</small></div></div>
+<div class="metric-card"><div class="metric-icon green">✓</div><div><span>Attended</span><strong>{{ stats.attended or 0 }}</strong><small>Present, late or excused</small></div></div>
+<div class="metric-card"><div class="metric-icon red">!</div><div><span>Absent</span><strong>{{ stats.absent or 0 }}</strong><small>Absences recorded</small></div></div>
+<div class="metric-card"><div class="metric-icon orange">%</div><div><span>Attendance</span><strong>{{ percentage }}%</strong><small>Target: 75%+</small></div></div>
+</div>
+<section class="panel"><div class="panel-head"><div><h2>My attendance</h2><p>Your latest attendance records.</p></div></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Course</th><th>Status</th></tr></thead><tbody>
+{% for r in records %}<tr><td>{{ r.session_date }}</td><td><strong>{{ r.code }}</strong><br><span class="table-muted">{{ r.subject_name }}</span></td><td><span class="pill {{ r.status|lower }}">{{ r.status }}</span></td></tr>{% else %}<tr><td colspan="3"><div class="empty-state">No attendance records yet.</div></td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}

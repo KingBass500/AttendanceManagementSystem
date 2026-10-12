@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Students{% endblock %}
+{% block page_title %}Students{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Students</h1><p>Manage registered students and their classes.</p></div></div>
+<section class="panel form-panel"><div class="panel-head"><div><h2>Add student</h2><p>Create a student account and assign a class.</p></div></div><form method="post" class="modern-form form-grid">
+<input name="username" placeholder="Login username" required><input name="password" type="password" placeholder="Temporary password" required><input name="student_number" placeholder="Student number" required><input name="first_name" placeholder="First name" required><input name="last_name" placeholder="Last name" required><input name="email" type="email" placeholder="Email"><select name="class_id"><option value="">Select class</option>{% for c in classes %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}</select><button class="btn primary">Add student</button>
+</form></section>
+<section class="panel"><div class="panel-head"><div><h2>Student directory</h2><p>{{ students|length }} student(s) registered.</p></div></div><div class="table-wrap"><table><thead><tr><th>Student</th><th>Number</th><th>Email</th><th>Class</th></tr></thead><tbody>{% for s in students %}<tr><td><strong>{{ s.first_name }} {{ s.last_name }}</strong></td><td>{{ s.student_number }}</td><td>{{ s.email or '-' }}</td><td>{{ s.class_name or '-' }}</td></tr>{% else %}<tr><td colspan="4"><div class="empty-state">No students found.</div></td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

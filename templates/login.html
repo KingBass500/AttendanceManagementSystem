@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Sign in | Attendance Management System{% endblock %}
+{% block content %}
+<div class="login-screen">
+  <div class="login-brand"><div class="brand-mark large">A</div><div><strong>Attendance</strong><span>Management System</span></div></div>
+  <div class="login-card-modern">
+    <div class="login-heading"><h1>Welcome back</h1><p>Sign in to manage and track attendance.</p></div>
+    <form method="post" class="login-form">
+      <label>Username</label><input name="username" placeholder="Enter your username" required autofocus>
+      <label>Password</label><input type="password" name="password" placeholder="Enter your password" required>
+      <button class="btn primary full">Sign in <span>→</span></button>
+    </form>
+    <div class="demo-box"><strong>Demo accounts</strong><span>Admin: admin / admin123</span><span>Lecturer: lecturer1 / lecturer123</span><span>Student: student1 / student123</span></div>
+  </div>
+  <p class="login-footer">Secure attendance management · Role-based access</p>
+</div>
+{% endblock %}

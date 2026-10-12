@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Lecturers{% endblock %}
+{% block page_title %}Lecturers{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Lecturers</h1><p>Manage lecturer accounts and teaching details.</p></div></div>
+<section class="panel form-panel"><div class="panel-head"><div><h2>Add lecturer</h2><p>Create a lecturer login account.</p></div></div><form method="post" class="modern-form form-grid"><input name="username" placeholder="Login username" required><input name="password" type="password" placeholder="Temporary password" required><input name="employee_number" placeholder="Employee number" required><input name="first_name" placeholder="First name" required><input name="last_name" placeholder="Last name" required><input name="email" type="email" placeholder="Email"><button class="btn primary">Add lecturer</button></form></section>
+<section class="panel"><div class="panel-head"><div><h2>Lecturer directory</h2><p>Registered teaching staff.</p></div></div><div class="table-wrap"><table><thead><tr><th>Lecturer</th><th>Employee No.</th><th>Email</th></tr></thead><tbody>{% for l in lecturers %}<tr><td><strong>{{ l.first_name }} {{ l.last_name }}</strong></td><td>{{ l.employee_number }}</td><td>{{ l.email or '-' }}</td></tr>{% else %}<tr><td colspan="3"><div class="empty-state">No lecturers found.</div></td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}New Lecture Session{% endblock %}
+{% block page_title %}Lecture sessions{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Create lecture session</h1><p>Select the course, class and date before marking attendance.</p></div></div>
+<section class="panel narrow-panel"><div class="session-form-icon">◷</div><div class="panel-head"><div><h2>Session details</h2><p>A student attendance record will be created for every student in the selected class.</p></div></div>
+<form method="post" class="modern-form"><label>Course</label><select name="subject_id" required>{% for s in subjects %}<option value="{{ s.id }}">{{ s.code }} · {{ s.name }}</option>{% endfor %}</select><label>Class</label><select name="class_id" required>{% for c in classes %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}</select><label>Date</label><input type="date" name="session_date" required><button class="btn primary full">Create session and mark attendance <span>→</span></button></form></section>
+{% endblock %}

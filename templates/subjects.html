@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Courses{% endblock %}
+{% block page_title %}Courses{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Courses</h1><p>Manage subjects and assign lecturers.</p></div></div>
+<section class="panel form-panel"><div class="panel-head"><div><h2>Add course</h2><p>Create a subject for attendance tracking.</p></div></div><form method="post" class="modern-form form-grid"><input name="code" placeholder="Course code e.g. PRG301" required><input name="name" placeholder="Course name" required><select name="lecturer_id"><option value="">Select lecturer</option>{% for l in lecturers %}<option value="{{ l.id }}">{{ l.first_name }} {{ l.last_name }}</option>{% endfor %}</select><button class="btn primary">Add course</button></form></section>
+<section class="panel"><div class="panel-head"><div><h2>Course list</h2><p>Active subjects in the system.</p></div></div><div class="table-wrap"><table><thead><tr><th>Code</th><th>Course</th><th>Lecturer</th></tr></thead><tbody>{% for s in subjects %}<tr><td><strong>{{ s.code }}</strong></td><td>{{ s.name }}</td><td>{{ s.lecturer or '-' }}</td></tr>{% else %}<tr><td colspan="3"><div class="empty-state">No courses found.</div></td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Mark Attendance{% endblock %}
+{% block page_title %}Lecture session{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Mark attendance</h1><p>{{ info.code }} · {{ info.subject_name }} · {{ info.class_name }} · {{ info.session_date }}</p></div></div>
+<section class="panel"><div class="panel-head"><div><h2>Student check-in</h2><p>Set each student's attendance status, then save the session.</p></div><span class="session-badge">{{ records|length }} students</span></div>
+<form method="post"><div class="table-wrap"><table><thead><tr><th>Student</th><th>Student No.</th><th>Status</th></tr></thead><tbody>{% for r in records %}<tr><td><strong>{{ r.first_name }} {{ r.last_name }}</strong></td><td>{{ r.student_number }}</td><td><select class="status-select" name="status_{{ r.student_id }}">{% for status in ['Present','Absent','Late','Excused'] %}<option {% if r.status == status %}selected{% endif %}>{{ status }}</option>{% endfor %}</select></td></tr>{% endfor %}</tbody></table></div><div class="form-actions"><a class="btn" href="{{ url_for('lecturer_dashboard') }}">Back</a><button class="btn primary">Save attendance</button></div></form></section>
+{% endblock %}

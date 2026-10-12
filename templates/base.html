@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Attendance Management System{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="{% if current_user.get('user_id') %}app-body{% else %}public-body{% endif %}">
+{% if current_user.get('user_id') %}
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">A</div>
+      <div><div class="brand-name">Attendance</div><div class="brand-sub">Management System</div></div>
+    </div>
+    <div class="profile-mini">
+      <div class="avatar">{{ current_user.get('username','U')[0]|upper }}</div>
+      <div class="profile-text"><strong>{{ current_user.get('username','User')|title }}</strong><span>{{ current_user.get('role','user')|title }}</span></div>
+    </div>
+    <nav class="side-nav">
+      <div class="nav-label">MAIN MENU</div>
+      <a class="nav-link {% if request.endpoint in ['dashboard','admin_dashboard','lecturer_dashboard','student_dashboard'] %}active{% endif %}" href="{{ url_for('dashboard') }}"><span class="nav-icon">⌂</span>Overview</a>
+      {% if current_user.get('role') == 'admin' %}
+      <a class="nav-link {% if request.endpoint == 'students' %}active{% endif %}" href="{{ url_for('students') }}"><span class="nav-icon">♙</span>Students</a>
+      <a class="nav-link {% if request.endpoint == 'subjects' %}active{% endif %}" href="{{ url_for('subjects') }}"><span class="nav-icon">▣</span>Courses</a>
+      <a class="nav-link {% if request.endpoint == 'admin_sessions' %}active{% endif %}" href="{{ url_for('admin_sessions') }}"><span class="nav-icon">◷</span>Lecture sessions</a>
+      <a class="nav-link {% if request.endpoint == 'reports' %}active{% endif %}" href="{{ url_for('reports') }}"><span class="nav-icon">▤</span>Reports</a>
+      <a class="nav-link {% if request.endpoint == 'users' %}active{% endif %}" href="{{ url_for('users') }}"><span class="nav-icon">♟</span>Users</a>
+      {% else %}
+      <a class="nav-link {% if request.endpoint == 'new_session' %}active{% endif %}" href="{{ url_for('new_session') }}"><span class="nav-icon">◷</span>Lecture sessions</a>
+      <a class="nav-link {% if request.endpoint == 'reports' %}active{% endif %}" href="{{ url_for('reports') }}"><span class="nav-icon">▤</span>Reports</a>
+      {% endif %}
+      <div class="nav-label nav-label-spaced">SYSTEM</div>
+      <a class="nav-link {% if request.endpoint == 'settings' %}active{% endif %}" href="{{ url_for('settings') }}"><span class="nav-icon">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-bottom"><div class="sidebar-help">Attendance made simple, secure and easy to track.</div><a class="logout-link" href="{{ url_for('logout') }}"><span class="nav-icon">↪</span>Sign out</a></div>
+  </aside>
+  <section class="main-area">
+    <header class="topbar-modern">
+      <div><div class="topbar-kicker">ATTENDANCE MANAGEMENT</div><div class="topbar-title">{% block page_title %}Overview{% endblock %}</div></div>
+      <div class="topbar-user"><div class="topbar-avatar">{{ current_user.get('username','U')[0]|upper }}</div><div><strong>{{ current_user.get('username','User')|title }}</strong><span>{{ current_user.get('role','user')|title }}</span></div></div>
+    </header>
+    <main class="content-area">
+{% else %}
+<main class="public-page">
+{% endif %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for category, message in messages %}<div class="alert {{ category }} {% if not current_user.get('user_id') %}public-alert{% endif %}">{{ message }}</div>{% endfor %}
+{% endwith %}
+{% block content %}{% endblock %}
+{% if current_user.get('user_id') %}
+    </main>
+  </section>
+</div>
+{% else %}
+</main>
+{% endif %}
+</body>
+</html>
