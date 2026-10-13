@@ -6,7 +6,7 @@ A Flask + SQLite web-based Attendance Management System with role-based access f
 The interface has been redesigned to closely follow the supplied reference: a dark navy sidebar, orange active navigation, clean white cards, compact dashboard statistics, recent lecture sessions, student attention alerts and responsive tables.
 
 ## Run in VS Code
-1. Open this folder in VS Code.
+1. Open VS Code.
 2. Open a PowerShell terminal in the project folder.
 3. If PowerShell blocks virtual-environment activation, you can skip activation and use the venv Python directly:
 
